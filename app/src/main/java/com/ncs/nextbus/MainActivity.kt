@@ -17,6 +17,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,6 +30,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -49,6 +51,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -58,6 +61,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.ncs.nextbus.feature_google_places.presentation.GooglePlacesInfoViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -98,7 +102,6 @@ class MainActivity : ComponentActivity() {
         databaseReference = Firebase.database.reference.child("bus_location")
 
         setContent {
-
             val googleViewmodel: GooglePlacesInfoViewModel = hiltViewModel()
             MainContent(googleViewmodel=googleViewmodel)
         }
@@ -172,9 +175,11 @@ class MainActivity : ComponentActivity() {
             googleViewModel.evenFlow.collectLatest { event ->
                 when(event){
                     is GooglePlacesInfoViewModel.UIEvent.ShowSnackBar ->{
+                        if (event.message!=""){
                         snackbarHostState.showSnackbar(
                             message = event.message
                         )
+                        }
                     }
                 }
             }
@@ -252,7 +257,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
         val context= LocalContext.current
         val sheetState = rememberModalBottomSheetState()
         var showBottomSheet by remember { mutableStateOf(false) }
-
+        val clickedBus = remember { mutableStateOf<RealtimeDB?>(null) }
         Scaffold(
             modifier = Modifier
                 .fillMaxSize()
@@ -261,9 +266,9 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
         ) { contentPadding ->
             GoogleMap(
                 modifier = modifier.padding(contentPadding),
-                cameraPositionState = cameraPositionState,
                 properties = mapProperties,
                 uiSettings = uiSettings,
+                cameraPositionState = cameraPositionState,
                 onMapLoaded = onMapLoaded,
                 onPOIClick = {
                     Log.d("TAG", "POI clicked: ${it.name}")
@@ -271,39 +276,45 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                 }
             ) {
 
-                LaunchedEffect(location?.latitude, location?.longitude) {
+                LaunchedEffect(clickedBus.value?.item?.latitude, clickedBus.value?.item?.latitude) {
                     googlePlacesInfoViewModel.getDirection(
-                        origin = "${location?.latitude}, ${location?.longitude}",
-                        destination = "${location?.endinglat}, ${location?.endinglong}",
+                        origin = "${clickedBus.value?.item?.latitude}, ${clickedBus.value?.item?.longitude}",
+                        destination = "${clickedBus.value?.item?.endinglat}, ${clickedBus.value?.item?.endinglong}",
                         key = MapKey.KEY
                     )
                 }
                 val markerClick: (Marker) -> Boolean = {
                     false
                 }
-                MapMarker(
-                    modifier = Modifier,
-                    position = LatLng(location?.latitude!!, location.longitude!!),
-                    title = "Bus",
-                    context = context,
-                    iconResourceId = R.drawable.bus,
-                    onInfoWindowClick = {showBottomSheet=true}
-                )
+                for (i in 0 until res.item.size){
+                    MapMarker(
+                        modifier = Modifier,
+                        position = LatLng(res.item[i].item?.latitude!!, res.item[i].item?.longitude!!),
+                        title = "Bus",
+                        context = context,
+                        iconResourceId = R.drawable.bus,
+                        onInfoWindowClick = {showBottomSheet=true
+                        clickedBus.value=res.item[i]
 
-                MapMarker(
-                    modifier = Modifier,
-                    position = LatLng(location?.startinglat!!, location.startinglong!!),
-                    title = "Starting Station",
-                    context = context,
-                    iconResourceId = R.drawable.start,
+                        }
                     )
-                MapMarker(
-                    modifier = Modifier,
-                    position = LatLng(location?.endinglat!!, location.endinglong!!),
-                    title = "Destination Station",
-                    context = context,
-                    iconResourceId = R.drawable.finish,
+                }
+                if (clickedBus.value!=null) {
+                    MapMarker(
+                        modifier = Modifier,
+                        position = LatLng(clickedBus.value?.item?.startinglat!!, clickedBus.value?.item?.startinglong!!),
+                        title = "Starting Station",
+                        context = context,
+                        iconResourceId = R.drawable.start,
                     )
+                    MapMarker(
+                        modifier = Modifier,
+                        position = LatLng(clickedBus.value?.item?.endinglat!!, clickedBus.value?.item?.endinglong!!),
+                        title = "Destination Station",
+                        context = context,
+                        iconResourceId = R.drawable.finish,
+                    )
+                }
                 Polyline(points = googlePlacesInfoViewModel.polyLinesPoints.value, onClick = {
                     Log.d("TAG", "${it.points} was clicked")
                 }, color = Color.Black)
@@ -316,23 +327,70 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                     },
                     sheetState = sheetState
                 ) {
-
+                    Log.d("testse",clickedBus.value.toString())
                     Column(
                         Modifier
                             .fillMaxWidth()
-                            .fillMaxHeight(0.4f)
+                            .fillMaxHeight(0.5f)
                             .padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally){
-                            Text(text = "Begin your journey \uD83C\uDFA2", color = Color.Black, fontWeight = FontWeight.ExtraBold, fontSize = 25.sp)
+                            Text(text = "Nearby Buses", color = Color.Black, fontWeight = FontWeight.ExtraBold, fontSize = 20.sp)
+                            Spacer(modifier = Modifier.height(15.dp))
+                            Text(text = "${clickedBus.value?.item?.start} <-> ${clickedBus.value?.item?.destination}", color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 18.sp)
                             Spacer(modifier = Modifier.height(30.dp))
-                            Text(text = "Give a right place to your things \n or explore a wide range of products!", color = Color.Gray, fontWeight = FontWeight.Medium, fontSize = 15.sp, textAlign = TextAlign.Center)
+                            Row(
+                                Modifier
+                                    .fillMaxWidth()
+                                    .height(80.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                                Column(
+                                    Modifier
+                                        .weight(1f)
+                                        .fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween) {
+                                    Text(text = "${clickedBus.value?.item?.busName}", color = Color.Black, fontWeight = FontWeight.Normal, fontSize = 15.sp)
+                                    Text(text = "${clickedBus.value?.item?.busNum}", color = Color.Black, fontWeight = FontWeight.Normal, fontSize = 15.sp)
+                                    Text(text = "Fuel : ${clickedBus.value?.item?.fueltype}", color = Color.Black, fontWeight = FontWeight.Normal, fontSize = 15.sp)
+                                }
+                                Column(
+                                    Modifier
+                                        .weight(1f)
+                                        .fillMaxHeight(),horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceBetween) {
+                                    Text(text = "Reaching ${clickedBus.value?.item?.destination} in ", color = Color.Black, fontWeight = FontWeight.Light, fontSize = 15.sp)
+                                    Spacer(modifier = Modifier.height(10.dp))
+                                    Box(modifier = Modifier
+                                        .size(50.dp)
+                                        .clip(RoundedCornerShape(10.dp))
+                                        .background(
+                                            Color.Black
+                                        ), contentAlignment = Alignment.Center){
+                                        Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                                            Text(text = "15", color = Color.White, fontSize = 20.sp)
+                                            Text(text = "min", color = Color.White, fontSize = 14.sp)
+                                        }
+                                    }
+                                }
+
+                            }
+                            Spacer(modifier = Modifier.height(30.dp))
+                            Text(text = "Driver Details", color = Color.Black, fontWeight = FontWeight.ExtraBold, fontSize = 20.sp)
                             Spacer(modifier = Modifier.height(30.dp))
 
-                            Spacer(modifier = Modifier.height(30.dp))
-                            Text(text = "*by continuing you Accept our Terms and Privacy Policies", color = Color.LightGray, fontWeight = FontWeight.Medium, fontSize = 12.sp, textAlign = TextAlign.Center)
-                            Spacer(modifier = Modifier.height(30.dp))
-                            Text(text = "With ❤️ by TradeZ", color = Color.LightGray, fontWeight = FontWeight.ExtraBold, fontSize = 12.sp, textAlign = TextAlign.Center)
-
+                            Row(
+                                Modifier
+                                    .fillMaxWidth()
+                                    ) {
+                                Box(modifier = Modifier.padding(top = 10.dp)){
+                                    Text(text = "${clickedBus.value?.item?.driverName}", color = Color.Black, fontWeight = FontWeight.Normal, fontSize = 22.sp)
+                                }
+                                Spacer(modifier = Modifier.width(20.dp))
+                                Box(modifier = Modifier
+                                    .size(50.dp)
+                                    .clip(CircleShape)
+                                    .background(
+                                        Color.Black
+                                    ), contentAlignment = Alignment.Center){
+                                    AsyncImage(model = clickedBus.value?.item?.driverprofilepic, contentDescription = "", contentScale = ContentScale.Crop )
+                                }
+                            }
                         }
                     }
                 }

@@ -39,7 +39,7 @@ class GooglePlacesInfoViewModel @Inject constructor(private val getDirectionInfo
                             direction = res.data,
                             isLoading = false
                         )
-                        _eventFlow.emit(UIEvent.ShowSnackBar(message = "Direction Loaded"))
+                        _eventFlow.emit(UIEvent.ShowSnackBar(message = ""))
 //                        _eventFlow.emit(
 //                            UIEvent.ShowSnackBar(
 //                            message = googlePlacesInfoState.value.direction?.routes?.get(0)?.overview_polyline?.points.toString()
@@ -56,7 +56,7 @@ class GooglePlacesInfoViewModel @Inject constructor(private val getDirectionInfo
                             direction = null,
                             isLoading = false
                         )
-                        _eventFlow.emit(UIEvent.ShowSnackBar(message = "Loading Direction"))
+                        _eventFlow.emit(UIEvent.ShowSnackBar(message = ""))
                     }
                 }
             }.launchIn(this)
@@ -73,10 +73,7 @@ class GooglePlacesInfoViewModel @Inject constructor(private val getDirectionInfo
         return decodePoly(points);
     }
 
-    /**
-     * Method to decode polyline points
-     * Courtesy : https://jeffreysambells.com/2010/05/27/decoding-polylines-from-google-maps-direction-api-with-java
-     */
+
     private fun decodePoly(encoded: String): List<LatLng> {
         val poly = ArrayList<LatLng>()
         var index = 0
