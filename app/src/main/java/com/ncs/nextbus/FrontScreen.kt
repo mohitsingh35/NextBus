@@ -1,0 +1,36 @@
+package com.ncs.nextbus
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import com.ncs.nextbus.databinding.NavBarBinding
+
+class FrontScreen : AppCompatActivity() {
+    private lateinit var binding : NavBarBinding
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = NavBarBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        replaceFragment(HomeFragment())
+
+        binding.NavBar.setOnItemSelectedListener() {
+            when(it.itemId){
+                R.id.home -> replaceFragment(HomeFragment())
+
+                else -> {
+
+
+                }
+        }
+            true
+        }
+    }
+    private fun replaceFragment(fragment : Fragment)
+    {
+        val fragmentManager =supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frameLayout,fragment)
+        fragmentTransaction.commit()
+
+    }
+}

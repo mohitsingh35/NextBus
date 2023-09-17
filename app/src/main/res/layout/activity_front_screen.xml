@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FrontScreen">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:padding="10dp"
+        android:backgroundTint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/Linear"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello"
+                android:textColor="@color/white"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:text="User"
+                android:textColor="@color/white"
+                android:textSize="33dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                app:startIconDrawable="@drawable/searchicon2"
+                android:textColorHint="@color/black"
+                android:background="@drawable/backgroundtext">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:textColorHint="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Place of departure"
+                    android:textSize="24dp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:textColorHint="@color/black"
+                app:startIconDrawable="@drawable/searchicon2"
+                android:background="@drawable/backgroundtext">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColorHint="@color/black"
+                    android:textSize="24dp"
+                    android:hint="Destination" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+        </LinearLayout>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            app:shapeAppearanceOverlay="@style/circular"
+            app:strokeWidth="10dp"
+            android:padding="2dp"
+            app:strokeColor="@color/white"
+            android:id="@+id/userImage"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="110dp"
+            android:layout_marginRight="25dp"
+            app:srcCompat="@drawable/img" />
+
+        <ImageView
+            android:id="@+id/AppLogo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="right"
+            android:layout_margin="12dp"
+            app:srcCompat="@drawable/mainlogo" />
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearanceOverlay="@style/circle"
+        android:id="@+id/imageView4"
+        android:layout_width="350dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="22dp"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/img_1" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textColorHint="@color/white"
+        app:startIconDrawable="@drawable/baseline_search_24"
+        android:background="@drawable/background2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColorHint="@color/white"
+            android:hint="  Search by the bus number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+</LinearLayout>
