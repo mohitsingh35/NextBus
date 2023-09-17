@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:id="@+id/Nearyou"
         android:layout_height="wrap_content"
-        android:title="Near you"
+        android:title="Near You"
         android:icon="@drawable/baseline_navigation_24"/>
     <item
         android:id="@+id/Profile"
