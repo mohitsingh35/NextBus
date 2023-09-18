@@ -61,6 +61,7 @@ class HomeFragment : Fragment() {
             }
             false
         }
+
         binding.destination.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 val departure=binding.start.text.toString()
@@ -73,6 +74,13 @@ class HomeFragment : Fragment() {
             }
             false
         }
+
+        binding.swap.setOnClickListener{
+            val temp=binding.start.text
+            binding.start.text=binding.destination.text
+            binding.destination.text=temp
+        }
+
         return binding.root
     }
 }
