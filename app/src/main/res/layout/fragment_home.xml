@@ -2,145 +2,233 @@
 
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
 
-        <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardView"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:padding="10dp"
-            android:backgroundTint="@color/black"
+            android:layout_height="350dp"
+            android:background="#1A1A1A"
+            android:padding="7dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.75"/>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/Linear"
-                android:layout_width="240dp"
-                android:layout_height="240dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="30dp"
-                android:orientation="vertical">
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:paddingTop="13dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline1"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hello"
+                    android:text="Hi,"
                     android:textColor="@color/white"
-                    android:textSize="40sp"
-                    android:textStyle="bold" />
+                    android:textSize="45sp"
+                    android:paddingLeft="15dp"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
+                    android:fontFamily="sans-serif-light"
+                    android:paddingLeft="15dp"
                     android:text="User"
+                    android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:textSize="33dp"
-                    android:textStyle="bold" />
+                    android:textSize="37dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView1" />
+
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tif1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="23dp"
+                    android:layout_marginBottom="33dp"
+                    android:background="@drawable/backgroundtext"
+                    android:gravity="center"
                     android:minWidth="48dp"
                     android:minHeight="48dp"
-                    app:startIconDrawable="@drawable/searchicon2"
                     android:textColorHint="@color/black"
-                    android:background="@drawable/backgroundtext">
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:endIconDrawable="@drawable/searchicon2"
+                    app:endIconMode="custom"
+                    app:hintEnabled="false"
+                    app:layout_constraintBottom_toTopOf="@id/tif2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:textColorHint="@color/black"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="55dp"
                         android:hint="Place of departure"
-                        android:textSize="24dp"
-                        />
+                        android:gravity="center"
+                        android:textColorHint="@color/black"
+                        android:background="@null"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:layout_editor_absoluteY="81dp" />
+
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="30dp"
+                    app:layout_constraintBottom_toTopOf="@id/tif2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tif1">
+
+                    <ImageView
+                        android:id="@+id/swapIcon"
+                        android:scaleType="centerInside"
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:src="@drawable/swapicon" />
+                </androidx.cardview.widget.CardView>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginHorizontal="23dp"
+                    android:id="@+id/tif2"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_marginTop="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/backgroundtext"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    android:paddingBottom="0dp"
+                    android:layout_marginBottom="20dp"
+                    app:hintEnabled="false"
+                    app:endIconMode="custom"
                     android:textColorHint="@color/black"
-                    app:startIconDrawable="@drawable/searchicon2"
-                    android:background="@drawable/backgroundtext">
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    app:endIconDrawable="@drawable/searchicon2">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="55dp"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:hint="Destination"
                         android:textColorHint="@color/black"
-                        android:textSize="24dp"
-                        android:hint="Destination" />
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent" />
+                    <!--                    tools:layout_editor_absoluteY="81dp" />-->
                 </com.google.android.material.textfield.TextInputLayout>
 
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.604"
+                app:layout_constraintStart_toEndOf="@+id/guideline1"
+                app:layout_constraintTop_toBottomOf="@+id/AppLogo"
+                app:layout_constraintVertical_bias="0.169"
+                app:cardCornerRadius="35dp">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                app:shapeAppearanceOverlay="@style/circular"
-                app:strokeWidth="10dp"
-                android:padding="2dp"
-                app:strokeColor="@color/white"
-                android:id="@+id/userImage"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
-                android:layout_gravity="right"
-                android:layout_marginTop="110dp"
-                android:layout_marginRight="25dp"
-                app:srcCompat="@drawable/img" />
-
+                <ImageView
+                    android:id="@+id/userImage"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/userprofile" />
+            </androidx.cardview.widget.CardView>
             <ImageView
                 android:id="@+id/AppLogo"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="right"
-                android:layout_margin="12dp"
-                app:srcCompat="@drawable/mainlogo" />
-        </androidx.cardview.widget.CardView>
+                android:layout_margin="3dp"
+                android:layout_marginTop="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/homescreenlogo" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.imageview.ShapeableImageView
             app:shapeAppearanceOverlay="@style/circle"
             android:id="@+id/imageView4"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_gravity="center"
             android:layout_marginTop="22dp"
             android:cropToPadding="false"
+            android:layout_marginHorizontal="16dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/img_1" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="350dp"
-            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            app:boxStrokeWidth="0dp"
+            app:hintEnabled="false"
+            app:endIconMode="custom"
+            app:boxStrokeWidthFocused="0dp"
             android:textColorHint="@color/white"
-            app:startIconDrawable="@drawable/baseline_search_24"
+            app:endIconDrawable="@drawable/baseline_search_24"
             android:background="@drawable/background2">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:textColorHint="@color/white"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:textSize="15dp"
+                android:textColorHint="#F4F4F4"
                 android:hint="  Search by the bus number" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
     </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -14,7 +14,6 @@ class FrontScreen : AppCompatActivity() {
         binding = ActivityFrontScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
         replaceFragment(HomeFragment())
-
         binding.bottonnav.setOnItemSelectedListener() {
             when(it.itemId){
                 R.id.home -> replaceFragment(HomeFragment())
