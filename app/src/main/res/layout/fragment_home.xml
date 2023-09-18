@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:scrollbars="vertical"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="100dp"
         android:orientation="vertical"
         tools:context=".HomeFragment"
         >
@@ -59,31 +63,38 @@
                     android:textColorHint="@color/black"
                     android:background="@drawable/backgroundtext">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                         android:textColorHint="@color/black"
                         android:layout_width="match_parent"
+                        android:imeOptions="actionGo"
+                        android:singleLine="true"
                         android:layout_height="match_parent"
-                        android:hint="Place of departure"
+                        android:hint="Departure"
+                        android:id="@+id/start"
                         android:textSize="24dp"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:textColorHint="@color/black"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
                     app:startIconDrawable="@drawable/searchicon2"
+                    android:textColorHint="@color/black"
                     android:background="@drawable/backgroundtext">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                    <AutoCompleteTextView
                         android:textColorHint="@color/black"
-                        android:textSize="24dp"
-                        android:hint="Destination" />
+                        android:layout_width="match_parent"
+                        android:imeOptions="actionDone"
+                        android:singleLine="true"
+                        android:layout_height="match_parent"
+                        android:hint="Destination"
+                        android:id="@+id/destination"
+                        android:textSize="24dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -124,24 +135,31 @@
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/img_1" />
 
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="350dp"
-            android:layout_height="50dp"
+            android:layout_height="65dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:textColorHint="@color/white"
             app:startIconDrawable="@drawable/baseline_search_24"
+            android:textColorHint="@color/white"
             android:background="@drawable/background2">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+            <AutoCompleteTextView
                 android:textColorHint="@color/white"
-                android:hint="  Search by the bus number" />
+                android:textColor="@color/white"
+                android:paddingStart="20dp"
+                android:gravity="start"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Search By Bus Number"
+                android:id="@+id/search_by_num"
+                android:textSize="24dp"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
 
     </LinearLayout>
 
-
+</ScrollView>
