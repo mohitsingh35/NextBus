@@ -80,6 +80,16 @@ class HomeFragment : Fragment() {
             binding.start.text=binding.destination.text
             binding.destination.text=temp
         }
+        binding.searchByNum.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val busNum=binding.searchByNum.text.toString()
+                val intent = Intent(requireContext(), MainActivity::class.java)
+                intent.putExtra("busNum", busNum)
+                requireContext().startActivity(intent)
+                return@setOnEditorActionListener true
+            }
+            false
+        }
 
         return binding.root
     }
