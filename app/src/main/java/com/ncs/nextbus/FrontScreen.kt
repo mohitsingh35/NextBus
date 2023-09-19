@@ -10,7 +10,9 @@ import androidx.compose.runtime.setValue
 import androidx.fragment.app.Fragment
 import com.ncs.nextbus.databinding.ActivityFrontScreenBinding
 import com.ncs.nextbus.databinding.NavBarBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FrontScreen : AppCompatActivity() {
     private lateinit var binding : ActivityFrontScreenBinding
     private var backPressedCount by mutableStateOf(0L)

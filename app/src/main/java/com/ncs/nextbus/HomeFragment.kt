@@ -1,25 +1,35 @@
 package com.ncs.nextbus
 
-import android.app.Activity
+import android.R
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
-import android.content.Intent.getIntent
-import android.os.Build
 import android.os.Bundle
-import android.os.LocaleList
+import android.util.Log
 import android.view.LayoutInflater
+import androidx.compose.runtime.collectAsState
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
-import androidx.core.app.ActivityCompat.recreate
+import android.widget.ListView
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.ncs.nextbus.databinding.FragmentHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 
-
-
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var viewModel: FrontScreenViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -37,13 +47,15 @@ class HomeFragment : Fragment() {
             android.R.layout.simple_dropdown_item_1line,
             suggestedBusStops
         )
+        val list=ArrayList<RealtimeDB>()
+        viewModel = ViewModelProvider(this).get(FrontScreenViewModel::class.java)
+
 
         val busNumbersAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_dropdown_item_1line,
             suggestedBusNumbers
         )
-
         binding.start.setAdapter(busStopsAdapter)
         binding.start.threshold = 1
 
@@ -63,6 +75,8 @@ class HomeFragment : Fragment() {
             }
             false
         }
+        val busdetailsvianum = mutableStateOf<RealtimeDB?>(null)
+
 
         binding.destination.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -82,24 +96,26 @@ class HomeFragment : Fragment() {
             binding.start.text=binding.destination.text
             binding.destination.text=temp
         }
+
         binding.searchByNum.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 val busNum=binding.searchByNum.text.toString()
+                viewModel.res.observe(viewLifecycleOwner, Observer { locationState ->
+                    for (i in 0 until locationState.item.size){
+                        if (locationState.item[i].item?.busNum==busNum){
+                            busdetailsvianum.value=locationState.item[i]
+                        }
+                    }
+                })
                 val intent = Intent(requireContext(), MainActivity::class.java)
-                intent.putExtra("busNum", busNum)
+                intent.putExtra("busdetails", busdetailsvianum.value)
+                intent.putExtra("busnum", busNum)
                 requireContext().startActivity(intent)
-                return@setOnEditorActionListener true
+
             }
             false
         }
 
-
         return binding.root
-
     }
-
-
-
-
-
 }
