@@ -8,5 +8,12 @@
     <string name="place_of_departure">प्रस्थान कि जगह</string>
     <string name="destination">"गंतव्य स्थल "</string>
     <string name="search_by_bus_number">बस नंबर से खोजें</string>
+    <string name="please_wait_loading">कृपया प्रतीक्षा करें!</string>
+    <string name="buses_near_you">आपके निकट बसें</string>
+    <string name="nearby_buses">आस-पास की बसें</string>
+    <string name="driver_details">ड्राइवर का विवरण</string>
+    <string name="starting_station">प्रारंभिक स्टेशन</string>
+    <string name="destination_station">गंतव्य स्टेशन</string>
+    <string name="active_buses">सक्रिय बसें</string>
 
 </resources>

@@ -9,5 +9,11 @@
     <string name="destination">Destination</string>
     <string name="search_by_bus_number">Search by Bus Number</string>
     <string name="please_wait_loading">"Please Wait! Loading "</string>
+    <string name="buses_near_you">Buses Near You</string>
+    <string name="nearby_buses">Nearby Buses</string>
+    <string name="driver_details">Driver Details</string>
+    <string name="starting_station">Starting Station</string>
+    <string name="destination_station">Destination Station</string>
+    <string name="active_buses">Active Buses</string>
 
 </resources>
