@@ -111,28 +111,38 @@ class MainActivity : ComponentActivity() {
         databaseReference = Firebase.database.reference.child("bus_location")
         val departure = intent.getStringExtra("departure")
         val destination = intent.getStringExtra("destination")
-        val busNum = intent.getStringExtra("busNum")
-
+        val busNum = intent.getStringExtra("busnum")
+        val busDetailsbynum = intent.getSerializableExtra("busdetails") as? RealtimeDB
+        Log.d("bus num check", busDetailsbynum.toString())
         setContent {
+            var showLoading by remember {
+                mutableStateOf(false)
+            }
+            if (showLoading){
+                loadingscreen()
+            }
             val googleViewmodel: GooglePlacesInfoViewModel = hiltViewModel()
-            if (departure!=null && destination !=null) {
-                MainContent(googleViewmodel = googleViewmodel,departure = departure,destination = destination)
-            }
-            else if (busNum!=null){
-                MainContent(googleViewmodel = googleViewmodel, busNum = busNum)
-            }
-            else{
+            val viewModel:MainActivityViewModel= hiltViewModel()
+            if (departure != null && destination != null) {
+                MainContent(
+                    googleViewmodel = googleViewmodel,
+                    departure = departure,
+                    destination = destination
+                )
+            } else if (busNum != null) {
+                MainContent(googleViewmodel = googleViewmodel, busNum = busNum, busdetailsbynum = busDetailsbynum)
+            } else {
                 MainContent(googleViewmodel = googleViewmodel)
             }
         }
     }
 
     @Composable
-    private fun MainContent(googleViewmodel:GooglePlacesInfoViewModel,departure:String?=null,destination:String?=null,busNum:String?=null) {
+    private fun MainContent(googleViewmodel:GooglePlacesInfoViewModel,departure:String?=null,destination:String?=null,busNum:String?=null,busdetailsbynum:RealtimeDB?=null) {
         if (!isLocationPermissionGranted) {
             requestLocationPermission()
         } else {
-            MapContent(googleViewModel = googleViewmodel, departure = departure, destination = destination, busNum = busNum)
+            MapContent(googleViewModel = googleViewmodel, departure = departure, destination = destination, busNum = busNum, busdetailsbynum = busdetailsbynum)
         }
     }
 
@@ -168,7 +178,7 @@ class MainActivity : ComponentActivity() {
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @Composable
-    private fun MapContent(viewModel: MainActivityViewModel= hiltViewModel(),googleViewModel:GooglePlacesInfoViewModel,departure:String?=null,destination:String?=null,busNum:String?=null) {
+    private fun MapContent(viewModel: MainActivityViewModel= hiltViewModel(),googleViewModel:GooglePlacesInfoViewModel,departure:String?=null,destination:String?=null,busNum:String?=null,busdetailsbynum:RealtimeDB?=null) {
         locationClient = LocationServices.getFusedLocationProviderClient(this)
         val res=viewModel.res.value
         val cameraPositionState = rememberCameraPositionState()
@@ -214,6 +224,7 @@ class MainActivity : ComponentActivity() {
                         isMapLoaded = true
                     },
                     cameraPositionState = cameraPositionState, destination = destination, departure = departure, busNum = busNum
+                    , busdetailsbynum = busdetailsbynum
                 )
                 if(!isMapLoaded){
                     AnimatedVisibility(
@@ -262,7 +273,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoViewModel: GooglePlacesInfoViewModel,
                   cameraPositionState: CameraPositionState,viewModel: MainActivityViewModel= hiltViewModel()
-                  ,departure:String?=null,destination:String?=null,busNum:String?=null) {
+                  ,departure:String?=null,destination:String?=null,busNum:String?=null,busdetailsbynum:RealtimeDB?=null) {
     if (departure==null && destination==null && busNum==null) {
         var poi by remember {
             mutableStateOf("")
@@ -754,10 +765,11 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                                 .clip(RoundedCornerShape(25.dp))
                                 .background(Color.Black)
                                 .clickable {
-                                    if (buscount!=0) {
+                                    if (buscount != 0) {
                                         showBusDetails.value = null
                                         showBottomSheet = true
-                                    }}, contentAlignment = Alignment.Center){
+                                    }
+                                }, contentAlignment = Alignment.Center){
                                 Text(text = "Active Buses", fontSize = 15.sp, fontWeight = FontWeight.Light, color = Color.White)
                             }
                         }
@@ -810,6 +822,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                                                 if (res.item[i].item?.start == departure && res.item[i].item?.destination == destination) {
                                                     eachRow(item = res.item[i]) {
                                                         showBusDetails.value=res.item[i]
+                                                        clickedBus.value=res.item[i]
                                                     }
                                                     buscount++
                                                 }
@@ -1001,11 +1014,21 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
             val clickedBus = remember { mutableStateOf<RealtimeDB?>(null) }
             var showBusDetails = remember { mutableStateOf<RealtimeDB?>(null) }
             val camerastate= rememberCameraPositionState()
+            val camerastate2= rememberCameraPositionState()
+
             if (clickedBus.value!=null) {
                 val userLatLng =
                     LatLng(clickedBus.value?.item?.latitude!!, clickedBus.value?.item?.longitude!!)
                 val cameraPosition = CameraPosition.fromLatLngZoom(userLatLng, 17f)
                 camerastate.position = cameraPosition
+            }
+            if (busdetailsbynum!=null){
+            LaunchedEffect(key1 =busdetailsbynum?.key!! ){
+                val userLatLng =
+                    LatLng(busdetailsbynum.item?.latitude!!, busdetailsbynum.item?.longitude!!)
+                val cameraPosition = CameraPosition.fromLatLngZoom(userLatLng, 17f)
+                camerastate2.position = cameraPosition
+            }
             }
             for (i in 0 until res.item.size){
                 if (res.item[i].item?.busNum==busNum){
@@ -1023,7 +1046,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                         modifier = modifier.padding(contentPadding),
                         properties = mapProperties,
                         uiSettings = uiSettings,
-                        cameraPositionState = if (clickedBus.value==null) cameraPositionState else camerastate,
+                        cameraPositionState = if (clickedBus.value==null) camerastate2  else camerastate,
                         onMapLoaded = onMapLoaded,
                         onPOIClick = {
                             Log.d("TAG", "POI clicked: ${it.name}")
@@ -1149,6 +1172,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                                         }
                                     }
                                     showBottomSheet = true
+                                    clickedBus.value=null
                                 }, contentAlignment = Alignment.Center){
                                 Text(text = "$busNum", fontSize = 15.sp, fontWeight = FontWeight.Light, color = Color.White)
                             }

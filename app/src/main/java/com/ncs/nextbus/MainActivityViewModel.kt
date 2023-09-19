@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ncs.nextbus.repository.RealtimeRepository
@@ -22,8 +23,6 @@ class MainActivityViewModel @Inject constructor(
         LocationState()
     )
     val res: State<LocationState> = _res
-
-
     init {
         viewModelScope.launch {
             repo.getLocationData().collect{
