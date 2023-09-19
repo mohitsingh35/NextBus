@@ -1,19 +1,21 @@
 package com.ncs.nextbus
 
-import android.R
+import android.app.Activity
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
+import android.content.Intent.getIntent
+import android.os.Build
 import android.os.Bundle
+import android.os.LocaleList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
-import android.widget.ListView
+import androidx.core.app.ActivityCompat.recreate
 import androidx.fragment.app.Fragment
 import com.ncs.nextbus.databinding.FragmentHomeBinding
+
 
 
 class HomeFragment : Fragment() {
@@ -81,6 +83,13 @@ class HomeFragment : Fragment() {
             binding.destination.text=temp
         }
 
+
         return binding.root
+
     }
+
+
+
+
+
 }

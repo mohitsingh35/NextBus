@@ -3,5 +3,10 @@
     <string name="MAPS_API_KEY">AIzaSyBRPU9f_neKrMRo33LDanLxwMxnqN5l0fU</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hi">Hi,</string>
+    <string name="user">User</string>
+    <string name="place_of_departure">Place of departure</string>
+    <string name="destination">Destination</string>
+    <string name="search_by_bus_number">Search by Bus Number</string>
 
 </resources>
