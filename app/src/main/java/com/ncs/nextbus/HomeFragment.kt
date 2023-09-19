@@ -38,8 +38,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val suggestedBusStops = arrayOf("Labour Chowk", "Noida", "Delhi", "Sector 62")
-        val suggestedBusNumbers = arrayOf("UP13BQ0001", "UP13BM0002", "UP13CQ1233")
+
+        val suggestedBusStops = ArrayList<String>()
+        val suggestedBusNumbers = ArrayList<String>()
 
         val busStopsAdapter = ArrayAdapter(
             requireContext(),
@@ -48,7 +49,23 @@ class HomeFragment : Fragment() {
         )
         val list=ArrayList<RealtimeDB>()
         viewModel = ViewModelProvider(this).get(FrontScreenViewModel::class.java)
-
+        viewModel.res.observe(viewLifecycleOwner, Observer { locationState ->
+            if (locationState.item.isNotEmpty()){
+                for (i in 0 until locationState.item.size){
+                    suggestedBusStops.add(locationState.item[i].item?.destination!!)
+                    suggestedBusStops.add(locationState.item[i].item?.start!!)
+                }
+            }
+        })
+        suggestedBusStops.distinct()
+        viewModel.res.observe(viewLifecycleOwner, Observer { locationState ->
+            if (locationState.item.isNotEmpty()){
+                for (i in 0 until locationState.item.size){
+                    suggestedBusNumbers.add(locationState.item[i].item?.busNum!!)
+                }
+            }
+        })
+        suggestedBusStops.distinct()
 
         val busNumbersAdapter = ArrayAdapter(
             requireContext(),
