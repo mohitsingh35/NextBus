@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 
 fun Context.showMsg(
@@ -37,7 +38,7 @@ fun loadingscreen(){
                 }
                 Spacer(modifier = Modifier.height(25.dp))
                 Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
-                    Text(text = "Please Wait! Loading ",)
+                    Text(text = stringResource(R.string.please_wait_loading),)
 
                 }
             }

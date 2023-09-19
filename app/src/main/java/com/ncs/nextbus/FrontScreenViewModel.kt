@@ -16,8 +16,6 @@ class FrontScreenViewModel @Inject constructor(
     private val repo: RealtimeRepository
 ) : ViewModel() {
     private val _res: MutableLiveData<LocationState> = MutableLiveData(LocationState())
-
-    // Expose LiveData for the Fragment to observe
     val res: LiveData<LocationState> = _res
 
     init {

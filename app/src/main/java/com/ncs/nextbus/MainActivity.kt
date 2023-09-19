@@ -62,6 +62,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -441,7 +442,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                                 .width(120.dp)
                                 .clip(RoundedCornerShape(25.dp))
                                 .background(Color.Black), contentAlignment = Alignment.Center){
-                                Text(text = "Buses Near You", fontSize = 15.sp, fontWeight = FontWeight.Light, color = Color.White)
+                                Text(text = stringResource(R.string.buses_near_you), fontSize = 15.sp, fontWeight = FontWeight.Light, color = Color.White)
                             }
                         }
 
@@ -463,7 +464,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                         ) {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text(
-                                    text = "Nearby Buses",
+                                    text = stringResource(R.string.nearby_buses),
                                     color = Color.Black,
                                     fontWeight = FontWeight.ExtraBold,
                                     fontSize = 20.sp
@@ -552,7 +553,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                                 }
                                 Spacer(modifier = Modifier.height(30.dp))
                                 Text(
-                                    text = "Driver Details",
+                                    text = stringResource(R.string.driver_details),
                                     color = Color.Black,
                                     fontWeight = FontWeight.ExtraBold,
                                     fontSize = 20.sp
@@ -722,7 +723,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                                     clickedBus.value?.item?.startinglat!!,
                                     clickedBus.value?.item?.startinglong!!
                                 ),
-                                title = "Starting Station",
+                                title = stringResource(R.string.starting_station),
                                 context = context,
                                 iconResourceId = R.drawable.start,
                             )
@@ -732,7 +733,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                                     clickedBus.value?.item?.endinglat!!,
                                     clickedBus.value?.item?.endinglong!!
                                 ),
-                                title = "Destination Station",
+                                title = stringResource(R.string.destination_station),
                                 context = context,
                                 iconResourceId = R.drawable.finish,
                             )
@@ -770,7 +771,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                                         showBottomSheet = true
                                     }
                                 }, contentAlignment = Alignment.Center){
-                                Text(text = "Active Buses", fontSize = 15.sp, fontWeight = FontWeight.Light, color = Color.White)
+                                Text(text = stringResource(R.string.active_buses), fontSize = 15.sp, fontWeight = FontWeight.Light, color = Color.White)
                             }
                         }
 
@@ -797,7 +798,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                             ) {
                                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                     Text(
-                                        text = "Active Buses",
+                                        text = stringResource(R.string.active_buses),
                                         color = Color.Black,
                                         fontWeight = FontWeight.ExtraBold,
                                         fontSize = 20.sp
@@ -850,7 +851,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                             ){
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text(
-                                    text = "Nearby Buses",
+                                    text = stringResource(R.string.nearby_buses),
                                     color = Color.Black,
                                     fontWeight = FontWeight.ExtraBold,
                                     fontSize = 20.sp
@@ -1124,7 +1125,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                                     clickedBus.value?.item?.startinglat!!,
                                     clickedBus.value?.item?.startinglong!!
                                 ),
-                                title = "Starting Station",
+                                title = stringResource(R.string.starting_station),
                                 context = context,
                                 iconResourceId = R.drawable.start,
                             )
@@ -1134,7 +1135,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                                     clickedBus.value?.item?.endinglat!!,
                                     clickedBus.value?.item?.endinglong!!
                                 ),
-                                title = "Destination Station",
+                                title = stringResource(R.string.destination_station),
                                 context = context,
                                 iconResourceId = R.drawable.finish,
                             )
@@ -1201,7 +1202,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                             ){
                                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                     Text(
-                                        text = "Nearby Buses",
+                                        text = stringResource(R.string.nearby_buses),
                                         color = Color.Black,
                                         fontWeight = FontWeight.ExtraBold,
                                         fontSize = 20.sp
@@ -1290,7 +1291,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                                     }
                                     Spacer(modifier = Modifier.height(30.dp))
                                     Text(
-                                        text = "Driver Details",
+                                        text = stringResource(R.string.driver_details),
                                         color = Color.Black,
                                         fontWeight = FontWeight.ExtraBold,
                                         fontSize = 20.sp
@@ -1338,7 +1339,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                             ){
                                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                     Text(
-                                        text = "Nearby Buses",
+                                        text = stringResource(R.string.nearby_buses),
                                         color = Color.Black,
                                         fontWeight = FontWeight.ExtraBold,
                                         fontSize = 20.sp
@@ -1427,7 +1428,7 @@ fun GoogleMapView(modifier: Modifier,onMapLoaded: () -> Unit, googlePlacesInfoVi
                                     }
                                     Spacer(modifier = Modifier.height(30.dp))
                                     Text(
-                                        text = "Driver Details",
+                                        text = stringResource(R.string.driver_details),
                                         color = Color.Black,
                                         fontWeight = FontWeight.ExtraBold,
                                         fontSize = 20.sp
