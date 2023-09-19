@@ -6,7 +6,7 @@ import java.io.Serializable
 data class RealtimeDB(
     val item: locationData?=null,
     val key: String?=""
-)  {
+) :Serializable {
 
     data class locationData(
         val startinglat:Double?=null,
@@ -29,4 +29,6 @@ data class RealtimeDB(
         val driverId:String?="",
         val busName:String?="",
     )
+        : Serializable
+    constructor() : this(null, "")
 }
