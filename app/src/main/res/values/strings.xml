@@ -8,5 +8,6 @@
     <string name="place_of_departure">Place of departure</string>
     <string name="destination">Destination</string>
     <string name="search_by_bus_number">Search by Bus Number</string>
+    <string name="please_wait_loading">"Please Wait! Loading "</string>
 
 </resources>
