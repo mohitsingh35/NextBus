@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:background="#1A1A1A"
-            android:padding="7dp"
+            android:padding="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,23 +42,27 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:orientation="vertical"
-                android:paddingTop="13dp"
+                android:paddingTop="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/guideline1"
                 app:layout_constraintTop_toTopOf="parent">
 
+
+
+
                 <TextView
                     android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hi,"
+                    android:paddingLeft="15dp"
+                    android:text="@string/hi"
                     android:textColor="@color/white"
                     android:textSize="45sp"
-                    android:paddingLeft="15dp"
-
+                    app:layout_constraintTop_toBottomOf="@id/langcardview"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="29dp" />
 
                 <TextView
                     android:id="@+id/textView2"
@@ -66,13 +70,15 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:paddingLeft="15dp"
-                    android:text="User"
-                    android:textStyle="bold"
+                    android:text="@string/user"
                     android:textColor="@color/white"
                     android:textSize="37dp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/textView1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textView1" />
 
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="88dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tif1"
@@ -96,7 +102,7 @@
                     <AutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
-                        android:hint="Place of departure"
+                        android:hint="@string/place_of_departure"
                         android:gravity="center"
                         android:id="@+id/start"
                         android:imeOptions="actionNext"
@@ -154,7 +160,7 @@
                     <AutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
-                        android:hint="Destination"
+                        android:hint="@string/destination"
                         android:gravity="center"
                         android:imeOptions="actionDone"
                         android:id="@+id/destination"
@@ -194,11 +200,27 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="right"
-                android:layout_margin="3dp"
-                android:layout_marginTop="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/homescreenlogo" />
+            <androidx.cardview.widget.CardView
+
+                android:id="@+id/langcardview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="30dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/AppLogo">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/translateicon2"
+                    tools:layout_editor_absoluteX="304dp"
+                    tools:layout_editor_absoluteY="13dp" />
+            </androidx.cardview.widget.CardView>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -232,7 +254,7 @@
             <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:hint="Search by Bus Number"
+                android:hint="@string/search_by_bus_number"
                 android:textColor="@color/white"
                 android:paddingStart="20dp"
                 android:id="@+id/searchByNum"

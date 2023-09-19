@@ -21,6 +21,7 @@ class FrontScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFrontScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         replaceFragment(HomeFragment())
         binding.bottonnav.setOnItemSelectedListener() {
             when(it.itemId){

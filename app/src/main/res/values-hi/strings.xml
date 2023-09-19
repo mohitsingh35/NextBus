@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">NextBus</string>
+    <string name="MAPS_API_KEY">AIzaSyBRPU9f_neKrMRo33LDanLxwMxnqN5l0fU</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hi">नमस्ते</string>
+    <string name="user">यात्री</string>
+    <string name="place_of_departure">प्रस्थान कि जगह</string>
+    <string name="destination">"गंतव्य स्थल "</string>
+    <string name="search_by_bus_number">बस नंबर से खोजें</string>
+
+</resources>
