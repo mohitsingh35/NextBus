@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "593651875974",
+    "firebase_url": "https://nextbus-71301-default-rtdb.firebaseio.com",
+    "project_id": "nextbus-71301",
+    "storage_bucket": "nextbus-71301.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593651875974:android:3445dcda70e1be336f1107",
+        "android_client_info": {
+          "package_name": "com.ncs.nextbus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuUzYYOFnUj-44mTBaMYYKVNkRF5UqSBo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593651875974:android:a75914569c356b276f1107",
+        "android_client_info": {
+          "package_name": "com.ncs.nextbus_driver"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuUzYYOFnUj-44mTBaMYYKVNkRF5UqSBo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
